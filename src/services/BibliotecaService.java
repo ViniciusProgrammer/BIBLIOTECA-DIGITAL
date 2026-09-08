@@ -4,6 +4,7 @@ import entities.EmprestimoLivro;
 import entities.Livro;
 import entities.Usuario;
 import exceptions.DadosInvalidosExceptions;
+import exceptions.LivroIndisponivelException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,8 @@ public class BibliotecaService {
     private final List<Livro> livros = new ArrayList<>();
     private final List<Usuario> usuarios = new ArrayList<>();
     private final List<EmprestimoLivro> livrosEmprestados = new ArrayList<>();
+    private Livro livro;
+    private Usuario usuario;
 
     public void cadastrarLivro(String titulo, String autor, String isbn, int quantidade) {
         try {
@@ -60,6 +63,23 @@ public class BibliotecaService {
     }
     */
 
+    public void pegarLivroEmprestado(String nomeDoLivro, int quantidadeCopiasSolicitadas) {
+        try {
+            if (!livro.getTitulo().equals(nomeDoLivro) || livro.getQuantidadeDisponivel() <= 0) {
+                throw new LivroIndisponivelException("O livro solicitado está sem disponibilidade no momento");
+            }
+
+            for (Livro livro : livros) {
+                if (livro.getTitulo().equals(nomeDoLivro)) {
+                    // Precisa elaborar uma lógica para decrementar isso aqui
+                    //   livro.getQuantidadeDisponivel() -= quantidadeCopiasSolicitadas;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public boolean devolverLivro(String isbn, String emailUsuario, int quantidade) {
         boolean isbnEValido = false;
         boolean emailEValido = false;
@@ -67,7 +87,8 @@ public class BibliotecaService {
 
         for (Livro livro : livros) {
             if (livro.getIsbn().equals(isbn)) {
-                livro.devolverLivro(quantidade);
+                // Consertar o erro aqui
+                //  livro.devolverLivro(quantidade);
                 isbnEValido = true;
             }
         }
