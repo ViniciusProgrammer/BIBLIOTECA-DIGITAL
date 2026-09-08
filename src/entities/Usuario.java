@@ -2,12 +2,15 @@ package entities;
 
 import exceptions.DadosInvalidosExceptions;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Usuario {
     private String nome;
     private String email;
     private String telefone;
     private double multa;
-    private int quantidadeLivrosPegouEmprestado;
+    private List<EmprestimoLivro> livrosPegosImprestadosAtivo = new ArrayList<>(3);
 
     public Usuario(String nome, String email, String telefone) {
         if (validarNome(nome)) {
@@ -35,7 +38,14 @@ public class Usuario {
         return telefone;
     }
 
-//    public boolean podePegarLivro(int quantidadeSolicitada) {
+//    public boolean podePegarLivro(String isbn, int quantidadeSolicitada) {
+//        try {
+//            if (this.livrosPegosImprestadosAtivo.size() < 3 && multa <= 10.0) {
+//
+//            }
+//        } catch (Exception e) {
+//
+//        }
 //        //retorna true se tiver menos de 3 empréstimos ativos e multa < 10
 //    }
 
