@@ -43,10 +43,6 @@ public class Livro {
         return quantidadeDisponivel;
     }
 
-    public void devolverLivro(int quantidade) {
-        this.quantidadeDisponivel += quantidade;
-    }
-
     public boolean validarIsbn(String isbn) {
         try {
             if (isbn == null || isbn.isBlank()) {
