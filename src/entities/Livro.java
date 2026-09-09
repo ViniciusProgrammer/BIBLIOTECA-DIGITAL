@@ -12,20 +12,29 @@ public class Livro {
     private int quantidadeTotalDoExemplarCadastrado;
 
     public Livro(String titulo, String autor, String isbn, int quantidadeDisponivel) {
-        if (validarTitulo(titulo)) {
+        try {
+            if (titulo == null || titulo.isBlank()) {
+                throw new DadosInvalidosExceptions("O título não pode ser nulo ou vazio");
+            }
+
+            if (autor == null || autor.isBlank()) {
+                throw new DadosInvalidosExceptions("O autor não pode ser nulo ou vazio");
+            }
+
+            if (isbn == null || isbn.isBlank() || isbn.length() < 13) {
+                throw new DadosInvalidosExceptions("A ISBN não pode ser nulo, vazio ou menos de 13 caracteres");
+            }
+
+            if (quantidadeDisponivel <= 0) {
+                throw new IllegalArgumentException("A quantidade não pode ser negativa ou zero");
+            }
+
             this.titulo = titulo;
-        }
-
-        if (validarAutor(autor)) {
             this.autor = autor;
-        }
-
-        if (validarIsbn(isbn)) {
             this.isbn = isbn;
-        }
-
-        if (validarQuantidade(quantidadeDisponivel)) {
             this.quantidadeDisponivel = quantidadeDisponivel;
+        } catch (DadosInvalidosExceptions | IllegalArgumentException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -57,45 +66,6 @@ public class Livro {
         } catch (Exception e) {
             System.out.println(e.getMessage());
 
-            return false;
-        }
-    }
-
-    public boolean validarTitulo(String titulo) {
-        try {
-            if (titulo == null || titulo.isBlank()) {
-                throw new DadosInvalidosExceptions("O título do livro não pode ser nulo ou vazio");
-            }
-
-            return true;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return false;
-        }
-    }
-
-    public boolean validarAutor(String autor) {
-        try {
-            if (autor == null || autor.isBlank()) {
-                throw new DadosInvalidosExceptions("O autor do livro não pode ser nulo ou vazio");
-            }
-
-            return true;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return false;
-        }
-    }
-
-    public boolean validarQuantidade(int quantidade) {
-        try {
-            if (quantidade <= 0) {
-                throw new DadosInvalidosExceptions("A quantidade não pode ser 0 ou negativa");
-            }
-
-            return true;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
             return false;
         }
     }
