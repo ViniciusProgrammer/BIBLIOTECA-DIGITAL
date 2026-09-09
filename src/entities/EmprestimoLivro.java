@@ -11,19 +11,20 @@ public class EmprestimoLivro {
     private LocalDate dataDevolucaoReal;
     private double multaAplicada;
 
-    public EmprestimoLivro(Livro livro, Usuario usuario, String emailUsuario, LocalDate dataEmprestimo, LocalDate dataDevolucaoPrevista) {
+    public EmprestimoLivro(Livro livro, Usuario usuario, String emailUsuario) {
         this.livro = livro;
         this.usuario = usuario;
         this.emailUsuario = emailUsuario;
-        this.dataEmprestimo = dataEmprestimo;
-        this.dataDevolucaoPrevista = dataDevolucaoPrevista;
+        this.dataEmprestimo = LocalDate.now();
+        this.dataDevolucaoPrevista = dataEmprestimo.plusDays(7);
     }
 
-    public void calcularMulta() {
-        if (dataDevolucaoReal.isAfter(dataDevolucaoPrevista)) {
-            // logica para aplicar multa
-        }
-    }
+//    public void calcularMulta() {
+//        dataDevolucaoReal = livro.
+//        if (dataDevolucaoReal.isAfter(dataDevolucaoPrevista)) {
+//            // logica para aplicar multa
+//        }
+//    }
 
     @Override
     public String toString() {
