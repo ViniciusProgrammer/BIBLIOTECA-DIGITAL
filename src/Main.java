@@ -1,3 +1,4 @@
+import entities.Livro;
 import entities.Usuario;
 import services.BibliotecaService;
 
@@ -15,5 +16,9 @@ public class Main {
         bibliotecaService.listarUsuarios();
 
         bibliotecaService.listarLivrosDisponiveis();
+
+        Livro livro = new Livro("Harry Potter", "Alvaro Dias", "3215123465475", 0);
+
+        System.out.println(livro);
     }
 }
