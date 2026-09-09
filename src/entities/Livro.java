@@ -2,12 +2,14 @@ package entities;
 
 import exceptions.DadosInvalidosExceptions;
 import exceptions.IsbnException;
+import exceptions.LivroIndisponivelException;
 
 public class Livro {
     private String titulo;
     private String autor;
     private String isbn;
     private int quantidadeDisponivel;
+    private int quantidadeTotalDoExemplarCadastrado;
 
     public Livro(String titulo, String autor, String isbn, int quantidadeDisponivel) {
         if (validarTitulo(titulo)) {
@@ -95,6 +97,28 @@ public class Livro {
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;
+        }
+    }
+
+    public boolean temDisponibilidade() {
+        if (quantidadeDisponivel <= quantidadeTotalDoExemplarCadastrado) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public void adicionarExemplar(int quantidadeAAdicionar) {
+        quantidadeDisponivel += quantidadeAAdicionar;
+    }
+
+    public void removerExemplar(int quantidadeARemover) {
+        try {
+            if (quantidadeARemover > quantidadeDisponivel) {
+                throw new LivroIndisponivelException("A quantidade indisponivel no momento");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
