@@ -5,37 +5,34 @@ import exceptions.IsbnException;
 import exceptions.LivroIndisponivelException;
 
 public class Livro {
-    private String titulo;
-    private String autor;
-    private String isbn;
+    private final String titulo;
+    private final String autor;
+    private final String isbn;
     private int quantidadeDisponivel;
     private int quantidadeTotalDoExemplarCadastrado;
 
-    public Livro(String titulo, String autor, String isbn, int quantidadeDisponivel) {
-        try {
-            if (titulo == null || titulo.isBlank()) {
-                throw new DadosInvalidosExceptions("O título não pode ser nulo ou vazio");
-            }
-
-            if (autor == null || autor.isBlank()) {
-                throw new DadosInvalidosExceptions("O autor não pode ser nulo ou vazio");
-            }
-
-            if (isbn == null || isbn.isBlank() || isbn.length() < 13) {
-                throw new DadosInvalidosExceptions("A ISBN não pode ser nulo, vazio ou menos de 13 caracteres");
-            }
-
-            if (quantidadeDisponivel <= 0) {
-                throw new IllegalArgumentException("A quantidade não pode ser negativa ou zero");
-            }
-
-            this.titulo = titulo;
-            this.autor = autor;
-            this.isbn = isbn;
-            this.quantidadeDisponivel = quantidadeDisponivel;
-        } catch (DadosInvalidosExceptions | IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+    public Livro(String titulo, String autor, String isbn, int quantidadeDisponivel) throws DadosInvalidosExceptions {
+        if (titulo == null || titulo.isBlank()) {
+            throw new DadosInvalidosExceptions("O título não pode ser nulo ou vazio");
         }
+
+        if (autor == null || autor.isBlank()) {
+            throw new DadosInvalidosExceptions("O autor não pode ser nulo ou vazio");
+        }
+
+        if (isbn == null || isbn.isBlank() || isbn.length() < 13) {
+            throw new DadosInvalidosExceptions("A ISBN não pode ser nulo, vazio ou menos de 13 caracteres");
+        }
+
+        if (quantidadeDisponivel <= 0) {
+            throw new IllegalArgumentException("A quantidade não pode ser negativa ou zero");
+        }
+
+        this.titulo = titulo;
+        this.autor = autor;
+        this.isbn = isbn;
+        this.quantidadeDisponivel = quantidadeDisponivel;
+        this.quantidadeTotalDoExemplarCadastrado += quantidadeDisponivel;
     }
 
     public String getTitulo() {
@@ -52,22 +49,6 @@ public class Livro {
 
     public int getQuantidadeDisponivel() {
         return quantidadeDisponivel;
-    }
-
-    public boolean validarIsbn(String isbn) {
-        try {
-            if (isbn == null || isbn.isBlank()) {
-                throw new DadosInvalidosExceptions("A ISBN não pode ser nula ou vazia");
-            } else if (isbn.length() < 13) {
-                throw new IsbnException("A quantidade de dígitos da ISBN precisa conter 13 dígitos");
-            }
-
-            return true;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-
-            return false;
-        }
     }
 
     public boolean temDisponibilidade() {
@@ -87,6 +68,8 @@ public class Livro {
             if (quantidadeARemover > quantidadeDisponivel) {
                 throw new LivroIndisponivelException("A quantidade indisponivel no momento");
             }
+
+            quantidadeDisponivel -= quantidadeARemover;
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
