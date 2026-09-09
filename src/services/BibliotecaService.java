@@ -3,6 +3,7 @@ package services;
 import entities.EmprestimoLivro;
 import entities.Livro;
 import entities.Usuario;
+import exceptions.DadosInvalidosExceptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,7 @@ public class BibliotecaService {
     private final List<Usuario> usuarios = new ArrayList<>();
     private final List<EmprestimoLivro> livrosEmprestados = new ArrayList<>();
 
-    public void cadastrarLivro(String titulo, String autor, String isbn, int quantidade) {
+    public void cadastrarLivro(String titulo, String autor, String isbn, int quantidade) throws DadosInvalidosExceptions {
             Livro livro = new Livro(titulo, autor, isbn, quantidade);
             this.livros.add(livro);
     }
