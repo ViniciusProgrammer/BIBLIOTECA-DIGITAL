@@ -3,8 +3,6 @@ package services;
 import entities.EmprestimoLivro;
 import entities.Livro;
 import entities.Usuario;
-import exceptions.DadosInvalidosExceptions;
-import exceptions.LivroIndisponivelException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +11,6 @@ public class BibliotecaService {
     private final List<Livro> livros = new ArrayList<>();
     private final List<Usuario> usuarios = new ArrayList<>();
     private final List<EmprestimoLivro> livrosEmprestados = new ArrayList<>();
-    private Livro livro;
-    private Usuario usuario;
 
     public void cadastrarLivro(String titulo, String autor, String isbn, int quantidade) {
             Livro livro = new Livro(titulo, autor, isbn, quantidade);
@@ -22,20 +18,8 @@ public class BibliotecaService {
     }
 
     public void cadastrarUsuario(String nome, String email, String telefone) {
-        try {
-            if (nome == null || nome.isBlank()) {
-                throw new DadosInvalidosExceptions("O nome do usuário não pode ser nulo ou vázio");
-            } else if (email == null || email.isBlank() || !email.contains("@")) {
-                throw new DadosInvalidosExceptions("O email fornecido é inválido");
-            } else if (telefone == null || telefone.isBlank()) {
-                throw new DadosInvalidosExceptions("O telefone fornecido é inválido");
-            }
-
-            Usuario usuario = new Usuario(nome, email, telefone);
-            this.usuarios.add(usuario);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        Usuario usuario = new Usuario(nome, email, telefone);
+        this.usuarios.add(usuario);
     }
 
     public void cadastrarUsuario(Usuario usuario) {
@@ -48,22 +32,22 @@ public class BibliotecaService {
     }
     */
 
-    public void pegarLivroEmprestado(String nomeDoLivro, int quantidadeCopiasSolicitadas) {
-        try {
-            if (!livro.getTitulo().equals(nomeDoLivro) || livro.getQuantidadeDisponivel() <= 0) {
-                throw new LivroIndisponivelException("O livro solicitado está sem disponibilidade no momento");
-            }
-
-            for (Livro livro : livros) {
-                if (livro.getTitulo().equals(nomeDoLivro)) {
-                    // Precisa elaborar uma lógica para decrementar isso aqui
-                    //   livro.getQuantidadeDisponivel() -= quantidadeCopiasSolicitadas;
-                }
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
+//    public void pegarLivroEmprestado(String nomeDoLivro, int quantidadeCopiasSolicitadas) {
+//        try {
+//            if (!livro.getTitulo().equals(nomeDoLivro) || livro.getQuantidadeDisponivel() <= 0) {
+//                throw new LivroIndisponivelException("O livro solicitado está sem disponibilidade no momento");
+//            }
+//
+//            for (Livro livro : livros) {
+//                if (livro.getTitulo().equals(nomeDoLivro)) {
+//                    // Precisa elaborar uma lógica para decrementar isso aqui
+//                    //   livro.getQuantidadeDisponivel() -= quantidadeCopiasSolicitadas;
+//                }
+//            }
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        }
+//    }
 
     public boolean devolverLivro(String isbn, String emailUsuario, int quantidade) {
         boolean isbnEValido = false;
