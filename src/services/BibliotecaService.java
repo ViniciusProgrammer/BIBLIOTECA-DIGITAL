@@ -17,23 +17,8 @@ public class BibliotecaService {
     private Usuario usuario;
 
     public void cadastrarLivro(String titulo, String autor, String isbn, int quantidade) {
-        try {
-            if (titulo == null || titulo.isBlank()) {
-                throw new DadosInvalidosExceptions("O título do livro não pode ser nulo ou vázio");
-            } else if (autor == null || autor.isBlank()) {
-                throw new DadosInvalidosExceptions("É necessário ter um autor válido e diferente de vázio");
-            } else if (isbn == null || isbn.isBlank()) {
-                throw new DadosInvalidosExceptions("O ISBN do livro precisa existir");
-            } else if (quantidade <= 0) {
-                throw new DadosInvalidosExceptions("A quantidade não pode ser negativa ou zero");
-            }
-
             Livro livro = new Livro(titulo, autor, isbn, quantidade);
             this.livros.add(livro);
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
     }
 
     public void cadastrarUsuario(String nome, String email, String telefone) {
