@@ -5,16 +5,14 @@ import java.time.LocalDate;
 public class EmprestimoLivro {
     private final Livro livro;
     private final Usuario usuario;
-    private final String emailUsuario;
     private final LocalDate dataEmprestimo;
     private final LocalDate dataDevolucaoPrevista;
     private LocalDate dataDevolucaoReal;
     private double multaAplicada;
 
-    public EmprestimoLivro(Livro livro, Usuario usuario, String emailUsuario) {
+    public EmprestimoLivro(Livro livro, Usuario usuario) {
         this.livro = livro;
         this.usuario = usuario;
-        this.emailUsuario = emailUsuario;
         this.dataEmprestimo = LocalDate.now();
         this.dataDevolucaoPrevista = dataEmprestimo.plusDays(7);
     }
@@ -26,15 +24,16 @@ public class EmprestimoLivro {
 //        }
 //    }
 
+
     @Override
     public String toString() {
         return "EmprestimoLivro{" +
                 "livro=" + livro +
                 ", usuario=" + usuario +
-                ", emailUsuario='" + emailUsuario + '\'' +
                 ", dataEmprestimo=" + dataEmprestimo +
                 ", dataDevolucaoPrevista=" + dataDevolucaoPrevista +
                 ", dataDevolucaoReal=" + dataDevolucaoReal +
+                ", multaAplicada=" + multaAplicada +
                 '}';
     }
 }
