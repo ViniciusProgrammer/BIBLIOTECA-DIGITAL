@@ -52,7 +52,7 @@ public class Livro {
     }
 
     public boolean temDisponibilidade() {
-        if (quantidadeDisponivel <= quantidadeTotalDoExemplarCadastrado) {
+        if (getQuantidadeDisponivel() > 0) {
             return true;
         }
 
@@ -61,15 +61,16 @@ public class Livro {
 
     public void adicionarExemplar(int quantidadeAAdicionar) {
         quantidadeDisponivel += quantidadeAAdicionar;
+        quantidadeTotalDoExemplarCadastrado += quantidadeAAdicionar;
     }
 
     public void removerExemplar(int quantidadeARemover) {
         try {
-            if (quantidadeARemover > quantidadeDisponivel) {
+            if (quantidadeARemover <= quantidadeDisponivel) {
+                quantidadeDisponivel -= quantidadeARemover;
+            } else {
                 throw new LivroIndisponivelException("A quantidade indisponivel no momento");
             }
-
-            quantidadeDisponivel -= quantidadeARemover;
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
