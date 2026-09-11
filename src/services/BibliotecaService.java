@@ -36,10 +36,11 @@ public class BibliotecaService {
 
         for (Livro livro : livros) {
             if (livro.getTitulo().equals(tituloLivro)) {
-                if (livro.getQuantidadeDisponivel() > 0 && livro.getQuantidadeDisponivel() <= quantidadePegarEmprestado) {
-                    livro.removerExemplar(quantidadePegarEmprestado);
-                    livroRetornado = livro;
-                    temLivroDisponivel = true;
+                if (livro.temDisponibilidade()) {
+                    if (livro.getQuantidadeDisponivel() <= quantidadePegarEmprestado)
+                        livro.removerExemplar(quantidadePegarEmprestado);
+                        livroRetornado = livro;
+                        temLivroDisponivel = true;
                 }
             }
         }
