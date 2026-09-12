@@ -19,18 +19,18 @@ public class BibliotecaService {
         this.livros.add(livro);
     }
 
-    public void cadastrarUsuario(String nome, String email, String telefone) {
+    public void cadastrarUsuario(String nome, String email, String telefone) throws DadosInvalidosExceptions {
         Usuario usuario = new Usuario(nome, email, telefone);
         this.usuarios.add(usuario);
     }
 
-    public void cadastrarUsuario(Usuario usuario) {
+    public void cadastrarUsuario(Usuario usuario) throws DadosInvalidosExceptions {
         cadastrarUsuario(usuario.getNome(), usuario.getEmail(), usuario.getTelefone());
     }
 
     public EmprestimoLivro emprestarLivro(String tituloLivro, String emailUsuario, int quantidadePegarEmprestado) {
-        boolean temLivroDisponivel = false;
-        boolean usuarioExiste = false;
+//        boolean temLivroDisponivel = false;
+//        boolean usuarioExiste = false;
         Livro livroRetornado = null;
         Usuario usuarioRetornado = null;
 
@@ -40,7 +40,7 @@ public class BibliotecaService {
                     if (livro.getQuantidadeDisponivel() <= quantidadePegarEmprestado)
                         livro.removerExemplar(quantidadePegarEmprestado);
                         livroRetornado = livro;
-                        temLivroDisponivel = true;
+                       // temLivroDisponivel = true;
                 }
             }
         }
@@ -48,11 +48,11 @@ public class BibliotecaService {
         for (Usuario usuario : usuarios) {
             if (usuario.getEmail().equals(emailUsuario)) {
                 usuarioRetornado = usuario;
-                usuarioExiste = true;
+               // usuarioExiste = true;
             }
         }
 
-        return new EmprestimoLivro(livroRetornado, usuarioRetornado, emailUsuario);
+   // erro     return new EmprestimoLivro(livroRetornado, usuarioRetornado, emailUsuario);
     }
 
     /*
