@@ -3,6 +3,7 @@ package entities;
 import exceptions.DadosInvalidosExceptions;
 import exceptions.IsbnException;
 import exceptions.LivroIndisponivelException;
+import exceptions.QuantidadeInvalidaException;
 
 public class Livro {
     private final String titulo;
@@ -25,7 +26,7 @@ public class Livro {
         }
 
         if (quantidadeDisponivel <= 0) {
-            throw new IllegalArgumentException("A quantidade não pode ser negativa ou zero");
+            throw new QuantidadeInvalidaException("A quantidade não pode ser negativa ou zero");
         }
 
         this.titulo = titulo;
