@@ -5,7 +5,6 @@ import entities.Livro;
 import entities.Usuario;
 import exceptions.DadosInvalidosExceptions;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,28 +18,24 @@ public class BibliotecaService {
         this.livros.add(livro);
     }
 
-    public void cadastrarUsuario(String nome, String email, String telefone) throws DadosInvalidosExceptions {
+    public void cadastrarUsuario(String nome, String email, String telefone) {
         Usuario usuario = new Usuario(nome, email, telefone);
         this.usuarios.add(usuario);
     }
 
-    public void cadastrarUsuario(Usuario usuario) throws DadosInvalidosExceptions {
+    public void cadastrarUsuario(Usuario usuario) {
         cadastrarUsuario(usuario.getNome(), usuario.getEmail(), usuario.getTelefone());
     }
 
     public EmprestimoLivro emprestarLivro(String tituloLivro, String emailUsuario, int quantidadePegarEmprestado) {
-//        boolean temLivroDisponivel = false;
-//        boolean usuarioExiste = false;
         Livro livroRetornado = null;
         Usuario usuarioRetornado = null;
 
         for (Livro livro : livros) {
             if (livro.getTitulo().equals(tituloLivro)) {
-                if (livro.temDisponibilidade()) {
-                    if (livro.getQuantidadeDisponivel() <= quantidadePegarEmprestado)
-                        livro.removerExemplar(quantidadePegarEmprestado);
-                        livroRetornado = livro;
-                       // temLivroDisponivel = true;
+                if (livro.getQuantidadeDisponivel() > 0 && quantidadePegarEmprestado <= livro.getQuantidadeDisponivel()) {
+                    livro.removerExemplar(quantidadePegarEmprestado);
+                    livroRetornado = livro;
                 }
             }
         }
@@ -48,11 +43,10 @@ public class BibliotecaService {
         for (Usuario usuario : usuarios) {
             if (usuario.getEmail().equals(emailUsuario)) {
                 usuarioRetornado = usuario;
-               // usuarioExiste = true;
             }
         }
 
-   // erro     return new EmprestimoLivro(livroRetornado, usuarioRetornado, emailUsuario);
+        return new EmprestimoLivro(livroRetornado, usuarioRetornado, emailUsuario);
     }
 
     /*
