@@ -65,15 +65,13 @@ public class Livro {
         quantidadeTotalDoExemplarCadastrado += quantidadeAAdicionar;
     }
 
-    public void removerExemplar(int quantidadeARemover) {
-        try {
-            if (quantidadeARemover <= quantidadeDisponivel) {
-                quantidadeDisponivel -= quantidadeARemover;
-            } else {
-                throw new LivroIndisponivelException("A quantidade indisponivel no momento");
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+    public void removerExemplar(int quantidadeARemover) throws LivroIndisponivelException {
+        if (quantidadeARemover > quantidadeDisponivel) {
+            throw new LivroIndisponivelException("A quantidade de livros solicitadas não se encontra disponivel no momento");
+        } else if (quantidadeARemover <= 0) {
+            throw new IllegalArgumentException("A quantidade solicitada é invalida");
+        } else {
+            quantidadeDisponivel -= quantidadeARemover;
         }
     }
 
