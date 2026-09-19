@@ -61,8 +61,16 @@ public class Livro {
     }
 
     public void adicionarExemplar(int quantidadeAAdicionar) {
-        quantidadeDisponivel += quantidadeAAdicionar;
-        quantidadeTotalDoExemplarCadastrado += quantidadeAAdicionar;
+        try {
+            if (quantidadeAAdicionar > 0) {
+                quantidadeDisponivel += quantidadeAAdicionar;
+                quantidadeTotalDoExemplarCadastrado += quantidadeAAdicionar;
+            }
+
+            throw new QuantidadeInvalidaException("A quantidade passada é inválida");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void removerExemplar(int quantidadeARemover) throws LivroIndisponivelException {
@@ -81,7 +89,7 @@ public class Livro {
                 "titulo='" + titulo + '\'' +
                 ", autor='" + autor + '\'' +
                 ", isbn='" + isbn + '\'' +
-                ", quantidadeDisponivel=" + quantidadeDisponivel +
+                ", quantidadeDisponível=" + quantidadeDisponivel +
                 '}';
     }
 }
