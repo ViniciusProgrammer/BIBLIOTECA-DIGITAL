@@ -65,10 +65,10 @@ public class Livro {
             if (quantidadeAAdicionar > 0) {
                 quantidadeDisponivel += quantidadeAAdicionar;
                 quantidadeTotalDoExemplarCadastrado += quantidadeAAdicionar;
+            } else {
+                throw new QuantidadeInvalidaException("A quantidade passada é inválida");
             }
-
-            throw new QuantidadeInvalidaException("A quantidade passada é inválida");
-        } catch (Exception e) {
+        } catch (QuantidadeInvalidaException e) {
             System.out.println(e.getMessage());
         }
     }
